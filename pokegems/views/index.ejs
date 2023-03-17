@@ -1,0 +1,257 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pokegem Catalog</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: lightblue;
+        margin: 0;
+      }
+    
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        color: lightcoral;
+      }
+    
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+/*     
+      .pokegem-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: stretch;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 20px 40px;
+      } */
+/*     
+      .pokegem-series {
+        box-shadow: 0px 0px 5px grey;
+        width: calc(100% / 3 - 20px);
+        margin-bottom: 20px;
+        background-color: antiquewhite;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+    
+      .pokegem-series h2 {
+        margin-bottom: 10px;
+        font-size: 24px;
+        text-align: center;
+        text-transform: uppercase;
+        color: lightcoral;
+      }
+    
+      .pokegem-series p {
+        margin: 0;
+        text-align: center;
+      }
+    
+      .pokegem-series img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto;
+      } */
+    
+      button {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 10px;
+        display: block;
+        margin: 0 auto;
+      }
+    
+      button:hover {
+        background-color: red;
+      }
+      
+      nav {
+        margin: 20px 0;
+        text-align: center;
+      }
+      
+      nav a {
+        color: black;
+        text-decoration: none;
+        padding: 10px 20px;
+        background-color: antiquewhite;
+        border: 2px solid black;
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      
+      nav a:hover {
+        background-color: black;
+        color: white;
+        border: 2px solid white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>POKEGEMS</h1>
+    <div class="pokegem-container">
+      <% let currentSeries = null; %>
+      <% for (let i = 0; i < pokegems.length; i++) { %>
+        <% if (pokegems[i].series !== currentSeries) { %>
+          <% if (currentSeries !== null) { %>
+            </div>
+          <% } %>
+          <% currentSeries = pokegems[i].series; %>
+          <div class="pokegem-series">
+            <h2><%= currentSeries %></h2>
+        <% } %>
+        <a href="/pokegems/<%= pokegems[i]._id %>"><img src="<%= pokegems[i].img %>"></a>
+        <p><%= pokegems[i].name %></p>
+        <form method="POST" action="/pokegems/<%= pokegems[i]._id %>?_method=DELETE">
+          <button type="submit">Delete</button>
+        </form>
+        
+     
+        
+      <% } %>
+   
+      </form>
+      </div>
+    </div>
+    <nav>
+      <a href="/pokegems/new">Create a New Pokegem</a>
+   
+    </nav>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Pokegems Catalog</title>
+	<style>
+		body {
+			background-color: black;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			background-color: rgb(227, 240, 231);
+			border: 10px solid #365c7a;
+			margin: 20px auto;
+			padding: 20px;
+			max-width: 1000px;
+		}
+
+		h1 {
+			display: none;
+		}
+
+    .logo {
+  background-image: url(https://i.imgur.com/8ibS5Z1.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 150px;
+  margin: 0px auto;
+  width: 450px;
+  margin-left: 190px;
+}
+
+
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		li {
+			display: inline-block;
+			vertical-align: top;
+			margin: 20px;
+			padding: 20px;
+			border: 10px solid #76d1b3;
+			text-align: center;
+			width: 250px;
+			height: 250px;
+			box-sizing: border-box;
+		}
+
+		h3 {
+			margin-top: 0;
+			background-color: black;
+			padding: 10px;
+			text-align: center;
+			font-size: 20px;
+			color: lightgoldenrodyellow;
+			margin-bottom: 10px;
+		}
+
+		h4 {
+			margin-top: 0;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+
+		img {
+			max-width: 100%;
+			height: auto;
+			margin-top: 10px;
+		}
+
+		.series {
+			clear: both;
+			margin-top: 20px;
+		}
+
+		.series h3 {
+			margin-top: 0;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Pokegems Catalog</h1>
+	<div class="logo"></div>
+	<div class="container">
+		<% let series = null; %>
+		<% pokegems.forEach((pokegem) => {
+      if (pokegem.series !== series) { %>
+				<% if (series !== null) { %>
+					</ul>
+				</div>
+				<% } %>
+				<div class="series">
+					<h3><%= pokegem.series %></h3>
+					<ul>
+						<% }
+      series = pokegem.series; %>
+						<li>
+							<a href="/pokegems/<%= pokegem._id %>">
+								<img src="<%= pokegem.img %>" alt="<%= pokegem.name %>">
+							</a>
+							<h4><%= pokegem.name %></h4>
+							<form method="POST" action="/pokegems/<%= pokegem._id %>?_method=DELETE">
+								<button type="submit">Delete</button>
+							</form>
+						</li>
+						<% }) %>
+					</ul>
+				</div>
+	</div>
+</body>
+
+</html>
