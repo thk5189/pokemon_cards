@@ -6,7 +6,15 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const Pokegem = require('./models/pokegem.js');
-const fs = require('fs');
+const session = require('express-session')
+const SESSION_SECRET = process.env.SESSION_SECRET
+console.log("Here is the session secret")
+console.log(SESSION_SECRET)
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}))
 
 // Middleware
 // Body parser middleware: give us access to req.body
@@ -14,6 +22,9 @@ app.use(express.urlencoded({ extended: true }));
 //Body parser: Add JSON data from request to the request object
 app.use(express.json())
 app.use(methodOverride('_method'));
+
+app.set('view engine', 'ejs');
+
 
 // Database Connection
 mongoose.connect(process.env.DATABASE_URL, {
@@ -35,18 +46,18 @@ app.get('/pokegems/new', (req, res) => {
 	res.render('new.ejs');
 });
 
-// app.get('/pokegems/:id', async (req, res) => {
-//   try {
-//     const pokegem = await Pokegem.findById(req.params.id);
-//     if (!pokegem) {
-//       return res.status(404).send('Pokegem not found');
-//     }
-//     res.render('show.ejs', { pokegem });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Server error');
-//   }
-// });
+app.get('/pokegems/:id', async (req, res) => {
+  try {
+    const pokegem = await Pokegem.findById(req.params.id);
+    if (!pokegem) {
+      return res.status(404).send('Pokegem not found');
+    }
+    res.render('show.ejs', { pokegem });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+});
 
 
 app.delete('/pokegems/:id', async (req, res) => {
@@ -64,15 +75,30 @@ app.delete('/pokegems/:id', async (req, res) => {
 
 
 
+// app.get('/pokegems', async (req, res) => {
+//     try {
+//       const pokegems = await Pokegem.find({});
+//       res.render('index.ejs', { pokegems });
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Server error');
+//     }
+//   });
+// app.get('/pokegems', async (req, res) => {
+//   const pokegems = await Pokegem.find().sort({ series: 'asc' });
+//   res.render('index', { pokegems });
+// });
+
 app.get('/pokegems', async (req, res) => {
-    try {
-      const pokegems = await Pokegem.find({});
-      res.render('index.ejs', { pokegems });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Server error');
-    }
-  });
+  try {
+    const pokegems = await Pokegem.find().sort({ series: 'asc' });
+    res.render('index', { pokegems });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+});
+
   
   app.post('/pokegems', (req, res) => {
     Pokegem.create(req.body, (error, createdPokegem) => {
@@ -207,6 +233,13 @@ app.get('/pokegems', async (req, res) => {
                 cardImg: "Not Available",
                 price: "Not Available",
                 img: "https://i.imgur.com/yveDKct.png"
+            },
+            {
+                series: "Base Set Series",
+                name: "Base Set",
+                cardImg: "https://images.pokemontcg.io/base1/4.png",
+                price: "Not Available",
+                img: "https://images.pokemontcg.io/base1/symbol.png"
             },
            
 

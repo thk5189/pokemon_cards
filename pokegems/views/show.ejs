@@ -1,22 +1,96 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Pokegem Details</title>
-  </head>
-  <body>
-    <h1><%= pokegem.name %></h1>
-    <img src="<%= pokegem.img %>" alt="<%= pokegem.name %>">
-    <p>Series: <%= pokegem.series %></p>
-    <p>ID: <%= pokegem._id %></p>
-    <img src="<%= pokegem.cardImg %>" alt="<%= pokegem.name %>">
-    <p>Price: <%= pokegem.price %></p>
-    <a href="/pokegems/<%= pokegem._id %>/edit">Edit</a>
-    <form action="/pokegems/<%= pokegem._id %>?_method=DELETE" method="POST">
-      <button type="submit">Delete</button>
-    </form>
-    <a href="/pokegems">Back to index</a>
-    
-  </body>
- 
+<head>
+	<meta charset="UTF-8">
+	<title>Pokegem Details</title>
+	<style>
+		body {
+			background-color: black;
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			background-color: rgb(250, 251, 211);
+			border: 10px solid #365c7a;
+			margin: 20px auto;
+			padding: 20px;
+			max-width: 1000px;
+		}
+
+		h1 {
+			display: none;
+		}
+
+    .logo {
+  background-image: url(https://i.imgur.com/8ibS5Z1.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 150px;
+  margin: 0px auto;
+  width: 450px;
+  margin-left: 190px;
+}
+
+
+		img {
+			max-width: 100%;
+			height: auto;
+			margin-top: 10px;
+		}
+
+		p {
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		a {
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #76d1b3;
+			color: white;
+			border-radius: 5px;
+			text-decoration: none;
+		}
+
+		button[type="submit"] {
+			font-size: 18px;
+			margin-top: 10px;
+			margin-bottom: 10px;
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #76d1b3;
+			color: white;
+			border-radius: 5px;
+			border: none;
+			cursor: pointer;
+		}
+
+		button[type="submit"]:hover {
+			background-color: #365c7a;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Pokegem Details</h1>
+	<div class="logo"></div>
+	<div class="container">
+		<img src="<%= pokegem.img %>" alt="<%= pokegem.name %>">
+		<p>Series: <%= pokegem.series %></p>
+		<p>ID: <%= pokegem._id %></p>
+		<img src="<%= pokegem.cardImg %>" alt="<%= pokegem.name %>">
+		<p>Price: <%= pokegem.price %></p>
+		<a href="/pokegems/<%= pokegem._id %>/edit">Edit</a>
+		<form action="/pokegems/<%= pokegem._id %>?_method=DELETE" method="POST">
+			<button type="submit">Delete</button>
+		</form>
+		<a href="/pokegems">Back to index</a>
+	</div>
+</body>
 </html>

@@ -150,7 +150,7 @@
 		}
 
 		.container {
-			background-color: rgb(227, 240, 231);
+			background-color: rgb(250, 251, 211);
 			border: 10px solid #365c7a;
 			margin: 20px auto;
 			padding: 20px;
@@ -229,29 +229,28 @@
 	<div class="container">
 		<% let series = null; %>
 		<% pokegems.forEach((pokegem) => {
-      if (pokegem.series !== series) { %>
-				<% if (series !== null) { %>
-					</ul>
-				</div>
-				<% } %>
-				<div class="series">
-					<h3><%= pokegem.series %></h3>
-					<ul>
-						<% }
-      series = pokegem.series; %>
-						<li>
-							<a href="/pokegems/<%= pokegem._id %>">
-								<img src="<%= pokegem.img %>" alt="<%= pokegem.name %>">
-							</a>
-							<h4><%= pokegem.name %></h4>
-							<form method="POST" action="/pokegems/<%= pokegem._id %>?_method=DELETE">
-								<button type="submit">Delete</button>
-							</form>
-						</li>
-						<% }) %>
-					</ul>
-				</div>
+		  if (pokegem.series !== series) { %>
+		    <% if (series !== null) { %>
+		      </ul>
+		    </div>
+		    <% } %>
+		    <div class="series">
+		      <h3><%= pokegem.series %></h3>
+		      <ul>
+		  <% }
+		  series = pokegem.series; %>
+		  <li>
+		    <a href="/pokegems/<%= pokegem._id %>">
+		      <img src="<%= pokegem.img %>" alt="<%= pokegem.name %>">
+		    </a>
+		    <h4><%= pokegem.name %></h4>
+		    <form method="POST" action="/pokegems/<%= pokegem._id %>?_method=DELETE">
+		      <button type="submit">Delete</button>
+		    </form>
+		  </li>
+		<% }) %>
+		</ul>
+		</div>
 	</div>
 </body>
-
 </html>
